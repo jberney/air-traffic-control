@@ -2,12 +2,13 @@ import XCTest
 @testable import Concourse
 
 class ConcourseClientTest: XCTestCase {
+    let error = MockError.JsonError
     let host = "p-concourse.wings.cf-app.com"
     let path = "/teams"
     var getTeams: XCTestExpectation!
     
     enum MockError : Error {
-        case RuntimeError(String)
+        case JsonError
     }
     
     class MockJsonClient: PJsonClient {
@@ -51,8 +52,7 @@ class ConcourseClientTest: XCTestCase {
     }
     
     func testWithFailedJsonRequest() {
-        let expectedError : Error? = MockError.RuntimeError("some-error")
-        let jsonClient = MockJsonClient(error: expectedError)
+        let jsonClient = MockJsonClient(error: self.error)
         
         let concourseClient = ConcourseClient(jsonClient: jsonClient)
         
@@ -60,7 +60,7 @@ class ConcourseClientTest: XCTestCase {
             XCTAssertEqual(self.host, jsonClient.host)
             XCTAssertEqual(self.path, jsonClient.path)
             
-            XCTAssertNotNil(error)
+            XCTAssertEqual(self.error, error as! ConcourseClientTest.MockError)
             XCTAssertNil(json as? String)
             
             self.getTeams.fulfill()

@@ -2,6 +2,9 @@ import XCTest
 @testable import Concourse
 
 class JsonClientTest: XCTestCase {
+    let error = MockError.HttpError
+    let host = "some-host"
+    let path = "/some-path"
     var requestJson: XCTestExpectation!
     
     enum MockError : Error {
@@ -30,17 +33,14 @@ class JsonClientTest: XCTestCase {
     }
     
     func testWithFailedHttpRequest() {
-        let host = "some-host"
-        let path = "/some-path"
-        let error = MockError.HttpError
         let httpClient = MockHttpClient(error: error)
         
         let jsonClient = JsonClient(httpClient: httpClient)
         
-        jsonClient.requestJson(host: host, path: path) {(actualError, parsed) in
+        jsonClient.requestJson(host: host, path: path) {(error, parsed) in
             XCTAssertEqual(URL(string: "https://some-host/api/v1/some-path"), httpClient.url)
             
-            XCTAssertNotNil(actualError)
+            XCTAssertEqual(self.error, error as! JsonClientTest.MockError)
             XCTAssertNil(parsed)
             
             self.requestJson.fulfill()
@@ -50,8 +50,6 @@ class JsonClientTest: XCTestCase {
     }
     
     func testWithFailedJsonParsing() {
-        let host = "some-host"
-        let path = "/some-path"
         let data = "[{\"id\":1,\"name\":\"name-1\"},".data(using: .utf8)
         let httpClient = MockHttpClient(data: data)
         
@@ -70,8 +68,6 @@ class JsonClientTest: XCTestCase {
     }
     
     func testWithSuccessfulHttpRequest() {
-        let host = "some-host"
-        let path = "/some-path"
         let data = "[{\"id\":1,\"name\":\"name-1\"},{\"id\":2,\"name\":\"name-2\"}]".data(using: .utf8)
         let httpClient = MockHttpClient(data: data)
         

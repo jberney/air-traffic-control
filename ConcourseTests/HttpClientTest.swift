@@ -49,8 +49,6 @@ class HttpClientTest: XCTestCase {
         let httpClient = HttpClient(session: session)
         
         httpClient.request(url: url!) {(data, response, error) in
-            XCTAssertEqual(self.url, session.url)
-            
             XCTAssertEqual(self.data, data)
             XCTAssertNil(error)
             
@@ -59,6 +57,7 @@ class HttpClientTest: XCTestCase {
         
         waitForExpectations(timeout: 10, handler: nil)
         
+        XCTAssertEqual(self.url, session.url)
         XCTAssertTrue(self.dataTask.resumed)
     }
     
@@ -68,8 +67,6 @@ class HttpClientTest: XCTestCase {
         let httpClient = HttpClient(session: session)
         
         httpClient.request(url: url!) {(data, response, error) in
-            XCTAssertEqual(self.url, session.url)
-            
             XCTAssertNil(data)
             XCTAssertEqual(self.error, error as! HttpClientTest.MockError)
             
@@ -78,6 +75,7 @@ class HttpClientTest: XCTestCase {
         
         waitForExpectations(timeout: 10, handler: nil)
         
+        XCTAssertEqual(self.url, session.url)
         XCTAssertTrue(self.dataTask.resumed)
     }
 }

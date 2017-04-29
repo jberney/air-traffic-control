@@ -38,8 +38,6 @@ class JsonClientTest: XCTestCase {
         let jsonClient = JsonClient(httpClient: httpClient)
         
         jsonClient.requestJson(host: host, path: path) {(error, parsed) in
-            XCTAssertEqual(URL(string: "https://some-host/api/v1/some-path"), httpClient.url)
-            
             XCTAssertEqual(self.error, error as! JsonClientTest.MockError)
             XCTAssertNil(parsed)
             
@@ -47,6 +45,8 @@ class JsonClientTest: XCTestCase {
         }
         
         waitForExpectations(timeout: 10, handler: nil)
+        
+        XCTAssertEqual(URL(string: "https://some-host/api/v1/some-path"), httpClient.url)
     }
     
     func testWithFailedJsonParsing() {
@@ -56,8 +56,6 @@ class JsonClientTest: XCTestCase {
         let jsonClient = JsonClient(httpClient: httpClient)
         
         jsonClient.requestJson(host: host, path: path) {(error, parsed) in
-            XCTAssertEqual(URL(string: "https://some-host/api/v1/some-path"), httpClient.url)
-            
             XCTAssertNotNil(error)
             XCTAssertNil(parsed)
             
@@ -65,6 +63,8 @@ class JsonClientTest: XCTestCase {
         }
         
         waitForExpectations(timeout: 10, handler: nil)
+        
+        XCTAssertEqual(URL(string: "https://some-host/api/v1/some-path"), httpClient.url)
     }
     
     func testWithSuccessfulHttpRequest() {
@@ -74,8 +74,6 @@ class JsonClientTest: XCTestCase {
         let jsonClient = JsonClient(httpClient: httpClient)
         
         jsonClient.requestJson(host: host, path: path) {(error, parsed) in
-            XCTAssertEqual(URL(string: "https://some-host/api/v1/some-path"), httpClient.url)
-            
             XCTAssertNil(error)
             XCTAssertEqual([["id": 1, "name": "name-1"], ["id": 2, "name": "name-2"]], parsed as? NSArray)
             
@@ -83,5 +81,7 @@ class JsonClientTest: XCTestCase {
         }
         
         waitForExpectations(timeout: 10, handler: nil)
+        
+        XCTAssertEqual(URL(string: "https://some-host/api/v1/some-path"), httpClient.url)
     }
 }

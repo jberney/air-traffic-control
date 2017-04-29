@@ -39,9 +39,6 @@ class ConcourseClientTest: XCTestCase {
         let concourseClient = ConcourseClient(jsonClient: jsonClient)
         
         concourseClient.getTeams(host: host) {(error, json) in
-            XCTAssertEqual(self.host, jsonClient.host)
-            XCTAssertEqual(self.path, jsonClient.path)
-            
             XCTAssertNil(error)
             XCTAssertEqual(expectedJson, json as? String)
             
@@ -49,6 +46,9 @@ class ConcourseClientTest: XCTestCase {
         }
         
         waitForExpectations(timeout: 10, handler: nil)
+        
+        XCTAssertEqual(self.host, jsonClient.host)
+        XCTAssertEqual(self.path, jsonClient.path)
     }
     
     func testWithFailedJsonRequest() {
@@ -57,9 +57,6 @@ class ConcourseClientTest: XCTestCase {
         let concourseClient = ConcourseClient(jsonClient: jsonClient)
         
         concourseClient.getTeams(host: host) {(error, json) in
-            XCTAssertEqual(self.host, jsonClient.host)
-            XCTAssertEqual(self.path, jsonClient.path)
-            
             XCTAssertEqual(self.error, error as! ConcourseClientTest.MockError)
             XCTAssertNil(json as? String)
             
@@ -67,5 +64,8 @@ class ConcourseClientTest: XCTestCase {
         }
         
         waitForExpectations(timeout: 10, handler: nil)
+        
+        XCTAssertEqual(self.host, jsonClient.host)
+        XCTAssertEqual(self.path, jsonClient.path)
     }
 }

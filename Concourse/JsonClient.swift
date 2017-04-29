@@ -1,7 +1,9 @@
 import Foundation
 
+typealias RequestJsonCompletionHandler = (Error?, Any?) -> Void
+
 protocol PJsonClient {
-    func requestJson(host: String, path: String, completionHandler: @escaping (Error?, Any?) -> Void)
+    func requestJson(host: String, path: String, completionHandler: @escaping RequestJsonCompletionHandler)
 }
 
 class JsonClient: PJsonClient {
@@ -11,7 +13,7 @@ class JsonClient: PJsonClient {
         self.httpClient = httpClient
     }
     
-    func requestJson(host: String, path: String, completionHandler: @escaping (Error?, Any?) -> Void) {
+    func requestJson(host: String, path: String, completionHandler: @escaping RequestJsonCompletionHandler) {
         let url = URL(string: "https://\(host)/api/v1\(path)")
         
         self.httpClient.request(url: url!) {(data, response, error) in

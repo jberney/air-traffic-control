@@ -1,7 +1,9 @@
 import Foundation
 
+typealias RequestCompletionHandler = (Data?, URLResponse?, Error?) -> Void
+
 protocol PHttpClient {
-    func request(url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void)
+    func request(url: URL, completionHandler: @escaping RequestCompletionHandler)
 }
 
 class HttpClient: PHttpClient {
@@ -11,7 +13,7 @@ class HttpClient: PHttpClient {
         self.session = session
     }
     
-    func request(url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    func request(url: URL, completionHandler: @escaping RequestCompletionHandler) {
         self.session.dataTask(with: url, completionHandler: completionHandler).resume()
     }
 }

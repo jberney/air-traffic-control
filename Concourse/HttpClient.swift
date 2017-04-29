@@ -5,9 +5,9 @@ protocol PHttpClient {
 }
 
 class HttpClient: PHttpClient {
-    let session: URLSession
+    let session: PUrlSession
     
-    init(session: URLSession) {
+    init(session: PUrlSession = URLSession.shared) {
         self.session = session
     }
     

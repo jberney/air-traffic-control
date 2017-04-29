@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6F25921A1EB5253E005C72B2 /* JsonClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2592191EB5253E005C72B2 /* JsonClientTest.swift */; };
+		6F25921C1EB53451005C72B2 /* UrlSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F25921B1EB53451005C72B2 /* UrlSession.swift */; };
 		6F40D9001EB4529B0097C216 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F40D8FF1EB4529B0097C216 /* AppDelegate.swift */; };
 		6F40D9021EB4529B0097C216 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F40D9011EB4529B0097C216 /* ViewController.swift */; };
 		6F40D9051EB4529B0097C216 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F40D9031EB4529B0097C216 /* Main.storyboard */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		6F2592191EB5253E005C72B2 /* JsonClientTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonClientTest.swift; sourceTree = "<group>"; };
+		6F25921B1EB53451005C72B2 /* UrlSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlSession.swift; sourceTree = "<group>"; };
 		6F40D8FC1EB4529B0097C216 /* Concourse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Concourse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F40D8FF1EB4529B0097C216 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6F40D9011EB4529B0097C216 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				6F40D91F1EB452D10097C216 /* ConcourseClient.swift */,
 				6F40D9231EB4829B0097C216 /* JsonClient.swift */,
 				6F40D9251EB503830097C216 /* HttpClient.swift */,
+				6F25921B1EB53451005C72B2 /* UrlSession.swift */,
 			);
 			path = Concourse;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F25921C1EB53451005C72B2 /* UrlSession.swift in Sources */,
 				6F40D9261EB503830097C216 /* HttpClient.swift in Sources */,
 				6F40D9241EB4829B0097C216 /* JsonClient.swift in Sources */,
 				6F40D9021EB4529B0097C216 /* ViewController.swift in Sources */,

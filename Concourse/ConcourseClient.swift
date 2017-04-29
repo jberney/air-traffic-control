@@ -1,6 +1,10 @@
 import Foundation
 
-class ConcourseApi {
+protocol PConcourseClient {
+    func getTeams(host: String, completionHandler: @escaping (Error?, Any?) -> Void)
+}
+
+class ConcourseClient: PConcourseClient {
     let jsonClient: PJsonClient
     
     init(jsonClient: PJsonClient) {

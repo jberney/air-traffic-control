@@ -11,7 +11,7 @@ class HttpClient: PHttpClient {
         self.session = session
     }
     
-    public func request(url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    func request(url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
         self.session.dataTask(with: url, completionHandler: completionHandler).resume()
     }
 }

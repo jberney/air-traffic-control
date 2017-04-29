@@ -11,7 +11,7 @@ class JsonClient: PJsonClient {
         self.httpClient = httpClient
     }
     
-    public func requestJson(host: String, path: String, completionHandler: @escaping (Error?, Any?) -> Void) {
+    func requestJson(host: String, path: String, completionHandler: @escaping (Error?, Any?) -> Void) {
         let url = URL(string: "https://\(host)/api/v1\(path)")
         
         self.httpClient.request(url: url!) {(data, response, error) in

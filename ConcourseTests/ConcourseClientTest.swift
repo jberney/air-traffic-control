@@ -1,7 +1,7 @@
 import XCTest
 @testable import Concourse
 
-class ConcourseApiTest: XCTestCase {
+class ConcourseClientTest: XCTestCase {
     let host = "p-concourse.wings.cf-app.com"
     let path = "/teams"
     var getTeams: XCTestExpectation!
@@ -35,9 +35,9 @@ class ConcourseApiTest: XCTestCase {
         let expectedJson = "{\"some-key\": \"some-value\"}"
         let jsonClient = MockJsonClient(json: expectedJson)
         
-        let concourseApi = ConcourseApi(jsonClient: jsonClient)
+        let concourseClient = ConcourseClient(jsonClient: jsonClient)
         
-        concourseApi.getTeams(host: host) {(error, json) in
+        concourseClient.getTeams(host: host) {(error, json) in
             XCTAssertEqual(self.host, jsonClient.host)
             XCTAssertEqual(self.path, jsonClient.path)
             
@@ -54,9 +54,9 @@ class ConcourseApiTest: XCTestCase {
         let expectedError : Error? = MockError.RuntimeError("some-error")
         let jsonClient = MockJsonClient(error: expectedError)
         
-        let concourseApi = ConcourseApi(jsonClient: jsonClient)
+        let concourseClient = ConcourseClient(jsonClient: jsonClient)
         
-        concourseApi.getTeams(host: host) {(error, json) in
+        concourseClient.getTeams(host: host) {(error, json) in
             XCTAssertEqual(self.host, jsonClient.host)
             XCTAssertEqual(self.path, jsonClient.path)
             

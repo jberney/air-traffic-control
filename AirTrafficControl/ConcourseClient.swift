@@ -9,15 +9,15 @@ protocol PConcourseClient {
 
 class ConcourseClient: PConcourseClient {
     let jsonClient: PJsonClient
-    
+
     init(jsonClient: PJsonClient) {
         self.jsonClient = jsonClient
     }
-    
+
     func getTeams(host: String, completionHandler: @escaping ConcourseGetCompletionHandler) {
         self.jsonClient.requestJson(host: host, path: "/teams", completionHandler: completionHandler)
     }
-    
+
     func getPipelines(host: String, completionHandler: @escaping ConcourseGetCompletionHandler) {
         self.jsonClient.requestJson(host: host, path: "/pipelines", completionHandler: completionHandler)
     }

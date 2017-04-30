@@ -1,7 +1,9 @@
 import Foundation
 
+typealias ConcourseGetTeamsCompletionHandler = (Error?, Any?) -> Void
+
 protocol PConcourseClient {
-    func getTeams(host: String, completionHandler: @escaping (Error?, Any?) -> Void)
+    func getTeams(host: String, completionHandler: @escaping ConcourseGetTeamsCompletionHandler)
 }
 
 class ConcourseClient: PConcourseClient {
@@ -11,7 +13,7 @@ class ConcourseClient: PConcourseClient {
         self.jsonClient = jsonClient
     }
     
-    func getTeams(host: String, completionHandler: @escaping (Error?, Any?) -> Void) {
+    func getTeams(host: String, completionHandler: @escaping ConcourseGetTeamsCompletionHandler) {
         self.jsonClient.requestJson(host: host, path: "/teams", completionHandler: completionHandler)
     }
 }

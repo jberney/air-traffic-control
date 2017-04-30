@@ -1,6 +1,7 @@
 import UIKit
 
 class TeamsTableViewController: UITableViewController {
+    var host: String = ""
     var teams: [Dictionary<String, Any>] = []
     
     override func viewDidLoad() {
@@ -12,7 +13,7 @@ class TeamsTableViewController: UITableViewController {
         let httpClient = HttpClient()
         let jsonClient = JsonClient(httpClient: httpClient)
         let concourseClient = ConcourseClient(jsonClient: jsonClient)
-        concourseClient.getTeams(host: "p-concourse.wings.cf-app.com") {(error, teams) in
+        concourseClient.getTeams(host: self.host) {(error, teams) in
             if (error == nil) {
                 self.teams = teams as! [Dictionary<String, Any>]
             }

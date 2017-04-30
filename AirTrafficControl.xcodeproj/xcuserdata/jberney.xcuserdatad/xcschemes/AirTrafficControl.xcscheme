@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6F40D8FB1EB4529B0097C216"
-               BuildableName = "Concourse.app"
-               BlueprintName = "Concourse"
-               ReferencedContainer = "container:Concourse.xcodeproj">
+               BuildableName = "AirTrafficControl.app"
+               BlueprintName = "AirTrafficControl"
+               ReferencedContainer = "container:AirTrafficControl.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,9 +34,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6F40D90F1EB4529C0097C216"
-               BuildableName = "ConcourseTests.xctest"
-               BlueprintName = "ConcourseTests"
-               ReferencedContainer = "container:Concourse.xcodeproj">
+               BuildableName = "AirTrafficControlTests.xctest"
+               BlueprintName = "AirTrafficControlTests"
+               ReferencedContainer = "container:AirTrafficControl.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,9 +44,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6F40D8FB1EB4529B0097C216"
-            BuildableName = "Concourse.app"
-            BlueprintName = "Concourse"
-            ReferencedContainer = "container:Concourse.xcodeproj">
+            BuildableName = "AirTrafficControl.app"
+            BlueprintName = "AirTrafficControl"
+            ReferencedContainer = "container:AirTrafficControl.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -67,9 +67,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6F40D8FB1EB4529B0097C216"
-            BuildableName = "Concourse.app"
-            BlueprintName = "Concourse"
-            ReferencedContainer = "container:Concourse.xcodeproj">
+            BuildableName = "AirTrafficControl.app"
+            BlueprintName = "AirTrafficControl"
+            ReferencedContainer = "container:AirTrafficControl.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -86,9 +86,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6F40D8FB1EB4529B0097C216"
-            BuildableName = "Concourse.app"
-            BlueprintName = "Concourse"
-            ReferencedContainer = "container:Concourse.xcodeproj">
+            BuildableName = "AirTrafficControl.app"
+            BlueprintName = "AirTrafficControl"
+            ReferencedContainer = "container:AirTrafficControl.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

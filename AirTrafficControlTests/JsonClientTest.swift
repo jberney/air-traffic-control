@@ -1,5 +1,5 @@
 import XCTest
-@testable import Concourse
+@testable import AirTrafficControl
 
 class JsonClientTest: XCTestCase {
     let error = MockError.HttpError

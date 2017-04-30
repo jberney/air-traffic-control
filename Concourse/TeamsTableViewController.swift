@@ -9,16 +9,6 @@ class TeamsTableViewController: UITableViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
-        
-        let httpClient = HttpClient()
-        let jsonClient = JsonClient(httpClient: httpClient)
-        let concourseClient = ConcourseClient(jsonClient: jsonClient)
-        concourseClient.getTeams(host: self.host) {(error, teams) in
-            if (error == nil) {
-                self.teams = teams as! [Dictionary<String, Any>]
-            }
-            self.tableView?.reloadData()
-        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -30,8 +20,4 @@ class TeamsTableViewController: UITableViewController {
         cell.textLabel?.text = teams[indexPath.row]["name"] as? String
         return cell
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("PREPARING")
-           }
 }

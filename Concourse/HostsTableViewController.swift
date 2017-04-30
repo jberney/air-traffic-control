@@ -1,15 +1,8 @@
-//
-//  HostsTableViewController.swift
-//  Concourse
-//
-//  Created by jberney on 4/29/17.
-//  Copyright © 2017 jberney. All rights reserved.
-//
-
 import UIKit
 
 class HostsTableViewController: UITableViewController {
     var hosts: [String] = ["p-concourse.wings.cf-app.com"]
+    let concourseClient = ConcourseClient(jsonClient: JsonClient(httpClient: HttpClient()))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,5 +25,12 @@ class HostsTableViewController: UITableViewController {
         let vc = segue.destination as! TeamsTableViewController
         let index = tableView.indexPathForSelectedRow?.row
         vc.host = self.hosts[index!]
+        
+        concourseClient.getTeams(host: vc.host) {(error, teams) in
+            if (error == nil) {
+                vc.teams = teams as! [Dictionary<String, Any>]
+            }
+            vc.tableView?.reloadData()
+        }
     }
 }

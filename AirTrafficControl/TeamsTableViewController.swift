@@ -39,6 +39,9 @@ class TeamsTableViewController: UITableViewController {
                     }
                 }
             }
+            vc.pipelines.sort() {(a, b) in
+                return b["name"] as! String > a["name"] as! String
+            }
             vc.tableView?.reloadData()
         }
     }

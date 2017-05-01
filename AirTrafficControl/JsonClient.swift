@@ -6,6 +6,10 @@ protocol PJsonClient {
     func requestJson(host: String, path: String, completionHandler: @escaping RequestJsonCompletionHandler)
 }
 
+enum JsonClientError: Error {
+    case invalidStatus
+}
+
 class JsonClient: PJsonClient {
     let httpClient: PHttpClient
 
@@ -18,6 +22,10 @@ class JsonClient: PJsonClient {
 
         self.httpClient.request(url: url!) {(data, response, error) in
             if error != nil {return completionHandler(error, nil)}
+            let httpResponse = response as! HTTPURLResponse
+            if (httpResponse.statusCode >= 400) {
+                return completionHandler(JsonClientError.invalidStatus, nil)
+            }
             do {completionHandler(nil, try JSONSerialization.jsonObject(with: data!))}
             catch {completionHandler(error, nil)}
         }

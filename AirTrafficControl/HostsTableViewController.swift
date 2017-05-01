@@ -23,17 +23,24 @@ class HostsTableViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as! TeamsTableViewController
-        let index = tableView.indexPathForSelectedRow?.row
-        vc.host = self.hosts[index!]
         vc.concourseClient = self.concourseClient
 
+        let index = tableView.indexPathForSelectedRow?.row
+        vc.host = self.hosts[index!]
+
         concourseClient.getTeams(host: vc.host) {(error, teams) in
-            if (error == nil) {
-                vc.teams = teams as! [Dictionary<String, Any>]
+            if (error != nil) {
+                let alert = UIAlertController(title: "Error", message: error!.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
             }
+
+            vc.teams = teams as! [Dictionary<String, Any>]
             vc.teams.sort() {(a, b) in
                 return b["name"] as! String > a["name"] as! String
             }
+
             vc.tableView?.reloadData()
         }
     }

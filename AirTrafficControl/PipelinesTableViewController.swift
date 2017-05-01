@@ -1,6 +1,7 @@
 import UIKit
 
 class PipelinesTableViewController: UITableViewController {
+    var concourseClient: ConcourseClient? = nil
     var host: String = ""
     var team: String = ""
     var pipelines: [Dictionary<String, Any>] = []
@@ -24,11 +25,14 @@ class PipelinesTableViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as! GroupsTableViewController
-        let index = tableView.indexPathForSelectedRow?.row
+        vc.concourseClient = self.concourseClient
         vc.host = self.host
         vc.team = self.team
+
+        let index = tableView.indexPathForSelectedRow?.row
         vc.pipeline = (self.pipelines[index!]["name"] as? String)!
         vc.groups = self.pipelines[index!]["groups"] as! [Dictionary<String, Any>]
+        
         vc.tableView?.reloadData()
     }
 }

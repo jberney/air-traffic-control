@@ -5,6 +5,8 @@ class JsonClientTest: XCTestCase {
     let error = MockError.HttpError
     let host = "some-host"
     let path = "/some-path"
+    let invalidStatusResponse = HTTPURLResponse(url: URL(string: "some-url")!, statusCode: 404, httpVersion: nil, headerFields: nil)
+    let validStatusResponse = HTTPURLResponse(url: URL(string: "some-url")!, statusCode: 200, httpVersion: nil, headerFields: nil)
     var requestJson: XCTestExpectation!
 
     enum MockError : Error {
@@ -37,7 +39,7 @@ class JsonClientTest: XCTestCase {
 
         let jsonClient = JsonClient(httpClient: httpClient)
 
-        jsonClient.requestJson(host: host, path: path) {(error, parsed) in
+        jsonClient.requestJson(host: host, path: self.path) {(error, parsed) in
             XCTAssertEqual(self.error, error as! JsonClientTest.MockError)
             XCTAssertNil(parsed)
 
@@ -49,13 +51,30 @@ class JsonClientTest: XCTestCase {
         XCTAssertEqual(URL(string: "https://some-host/api/v1/some-path"), httpClient.url)
     }
 
+        func testWithInvalidResponseStatus() {
+            let httpClient = MockHttpClient(urlResponse: invalidStatusResponse)
+    
+            let jsonClient = JsonClient(httpClient: httpClient)
+    
+            jsonClient.requestJson(host: host, path: self.path) {(error, parsed) in
+                XCTAssertNotNil(error)
+                XCTAssertNil(parsed)
+    
+                self.requestJson.fulfill()
+            }
+    
+            waitForExpectations(timeout: 10, handler: nil)
+    
+            XCTAssertEqual(URL(string: "https://some-host/api/v1/some-path"), httpClient.url)
+        }
+
     func testWithFailedJsonParsing() {
         let data = "[{\"id\":1,\"name\":\"name-1\"},".data(using: .utf8)
-        let httpClient = MockHttpClient(data: data)
+        let httpClient = MockHttpClient(data: data, urlResponse: validStatusResponse)
 
         let jsonClient = JsonClient(httpClient: httpClient)
 
-        jsonClient.requestJson(host: host, path: path) {(error, parsed) in
+        jsonClient.requestJson(host: host, path: self.path) {(error, parsed) in
             XCTAssertNotNil(error)
             XCTAssertNil(parsed)
 
@@ -69,11 +88,11 @@ class JsonClientTest: XCTestCase {
 
     func testWithSuccessfulHttpRequest() {
         let data = "[{\"id\":1,\"name\":\"name-1\"},{\"id\":2,\"name\":\"name-2\"}]".data(using: .utf8)
-        let httpClient = MockHttpClient(data: data)
+        let httpClient = MockHttpClient(data: data, urlResponse: validStatusResponse)
 
         let jsonClient = JsonClient(httpClient: httpClient)
 
-        jsonClient.requestJson(host: host, path: path) {(error, parsed) in
+        jsonClient.requestJson(host: host, path: self.path) {(error, parsed) in
             XCTAssertNil(error)
             XCTAssertEqual([["id": 1, "name": "name-1"], ["id": 2, "name": "name-2"]], parsed as? NSArray)
 

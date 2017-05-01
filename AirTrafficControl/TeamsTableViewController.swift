@@ -24,24 +24,32 @@ class TeamsTableViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as! PipelinesTableViewController
-        let index = tableView.indexPathForSelectedRow?.row
+        vc.concourseClient = self.concourseClient
         vc.host = self.host
+
+        let index = tableView.indexPathForSelectedRow?.row
         vc.team = (self.teams[index!]["name"] as? String)!
 
         concourseClient?.getPipelines(host: vc.host) {(error, pipelines) in
-            if (error == nil) {
-                vc.pipelines = []
-                let pipelinesArray = pipelines as! NSArray
-                for pipeline in pipelinesArray {
-                    let p = pipeline as! Dictionary<String, Any>
-                    if (p["team_name"] as! String == vc.team) {
-                        vc.pipelines.append(p)
-                    }
+            if (error != nil) {
+                let alert = UIAlertController(title: "Error", message: error!.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+
+            vc.pipelines = []
+            let pipelinesArray = pipelines as! NSArray
+            for pipeline in pipelinesArray {
+                let p = pipeline as! Dictionary<String, Any>
+                if (p["team_name"] as! String == vc.team) {
+                    vc.pipelines.append(p)
                 }
             }
             vc.pipelines.sort() {(a, b) in
                 return b["name"] as! String > a["name"] as! String
             }
+            
             vc.tableView?.reloadData()
         }
     }

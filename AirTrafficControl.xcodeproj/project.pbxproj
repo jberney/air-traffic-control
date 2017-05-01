@@ -20,6 +20,7 @@
 		6F40D9261EB503830097C216 /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F40D9251EB503830097C216 /* HttpClient.swift */; };
 		6F6336F31EB56B9A00D77F57 /* TeamsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6336F21EB56B9A00D77F57 /* TeamsTableViewController.swift */; };
 		6F6336F51EB580FD00D77F57 /* HostsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6336F41EB580FD00D77F57 /* HostsTableViewController.swift */; };
+		6FF5CF191EB6A8A8003FBCC2 /* PipelinesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF5CF181EB6A8A8003FBCC2 /* PipelinesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		6F40D9251EB503830097C216 /* HttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
 		6F6336F21EB56B9A00D77F57 /* TeamsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamsTableViewController.swift; sourceTree = "<group>"; };
 		6F6336F41EB580FD00D77F57 /* HostsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostsTableViewController.swift; sourceTree = "<group>"; };
+		6FF5CF181EB6A8A8003FBCC2 /* PipelinesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipelinesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				6F40D9031EB4529B0097C216 /* Main.storyboard */,
 				6F6336F41EB580FD00D77F57 /* HostsTableViewController.swift */,
 				6F6336F21EB56B9A00D77F57 /* TeamsTableViewController.swift */,
+				6FF5CF181EB6A8A8003FBCC2 /* PipelinesTableViewController.swift */,
 				6F40D9061EB4529B0097C216 /* Assets.xcassets */,
 				6F40D90B1EB4529B0097C216 /* Info.plist */,
 				6F40D91F1EB452D10097C216 /* ConcourseClient.swift */,
@@ -226,6 +229,7 @@
 				6F6336F31EB56B9A00D77F57 /* TeamsTableViewController.swift in Sources */,
 				6F40D9261EB503830097C216 /* HttpClient.swift in Sources */,
 				6F2592201EB53EE3005C72B2 /* UrlSessionDataTask.swift in Sources */,
+				6FF5CF191EB6A8A8003FBCC2 /* PipelinesTableViewController.swift in Sources */,
 				6F40D9241EB4829B0097C216 /* JsonClient.swift in Sources */,
 				6F40D9001EB4529B0097C216 /* AppDelegate.swift in Sources */,
 				6F40D9201EB452D10097C216 /* ConcourseClient.swift in Sources */,

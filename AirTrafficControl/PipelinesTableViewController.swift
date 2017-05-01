@@ -21,4 +21,14 @@ class PipelinesTableViewController: UITableViewController {
         cell.textLabel?.text = pipelines[indexPath.row]["name"] as? String
         return cell
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! GroupsTableViewController
+        let index = tableView.indexPathForSelectedRow?.row
+        vc.host = self.host
+        vc.team = self.team
+        vc.pipeline = (self.pipelines[index!]["name"] as? String)!
+        vc.groups = self.pipelines[index!]["groups"] as! [Dictionary<String, Any>]
+        vc.tableView?.reloadData()
+    }
 }

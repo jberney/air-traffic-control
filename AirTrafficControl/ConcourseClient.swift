@@ -21,4 +21,8 @@ class ConcourseClient: PConcourseClient {
     func getPipelines(host: String, completionHandler: @escaping ConcourseGetCompletionHandler) {
         self.jsonClient.requestJson(host: host, path: "/pipelines", completionHandler: completionHandler)
     }
+
+    func getJobs(host: String, pipeline: String, completionHandler: @escaping ConcourseGetCompletionHandler) {
+        self.jsonClient.requestJson(host: host, path: "/pipelines/\(pipeline)/jobs", completionHandler: completionHandler)
+    }
 }

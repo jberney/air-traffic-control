@@ -32,16 +32,15 @@ class ConcourseClientTest: XCTestCase {
     }
 
     func testGetTeamsWithSuccessfulJsonRequest() {
-        let path = "/teams"
         let expectedJson = [["id": 1, "name": "name-1"]]
         let jsonClient = MockJsonClient(json: expectedJson)
 
         let concourseClient = ConcourseClient(jsonClient: jsonClient)
 
-        concourseClient.getTeams(host: host) {(error, json) in
+        concourseClient.getTeams(host: self.host) {(error, teams) in
             XCTAssertNil(error)
-            XCTAssertEqual(1, (json as! NSArray).count)
-            let team = (((json as! NSArray)[0]) as! Dictionary<String, Any>)
+            XCTAssertEqual(1, (teams as! NSArray).count)
+            let team = (((teams as! NSArray)[0]) as! Dictionary<String, Any>)
             XCTAssertEqual(1, team["id"] as! Int)
             XCTAssertEqual("name-1", team["name"] as! String)
 
@@ -51,18 +50,17 @@ class ConcourseClientTest: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
 
         XCTAssertEqual(self.host, jsonClient.host)
-        XCTAssertEqual(path, jsonClient.path)
+        XCTAssertEqual("/teams", jsonClient.path)
     }
 
     func testGetTeamsWithFailedJsonRequest() {
-        let path = "/teams"
         let jsonClient = MockJsonClient(error: self.error)
 
         let concourseClient = ConcourseClient(jsonClient: jsonClient)
 
-        concourseClient.getTeams(host: host) {(error, json) in
+        concourseClient.getTeams(host: self.host) {(error, json) in
             XCTAssertEqual(self.error, error as! ConcourseClientTest.MockError)
-            XCTAssertNil(json as? String)
+            XCTAssertNil(json)
 
             self.request.fulfill()
         }
@@ -70,24 +68,23 @@ class ConcourseClientTest: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
 
         XCTAssertEqual(self.host, jsonClient.host)
-        XCTAssertEqual(path, jsonClient.path)
+        XCTAssertEqual("/teams", jsonClient.path)
     }
 
     func testGetPipelinesWithSuccessfulJsonRequest() {
-        let path = "/pipelines"
         let expectedJson = [["name": "cf-current", "paused": true, "public": true, "team_name": "docs"]]
         let jsonClient = MockJsonClient(json: expectedJson)
 
         let concourseClient = ConcourseClient(jsonClient: jsonClient)
 
-        concourseClient.getPipelines(host: host) {(error, json) in
+        concourseClient.getPipelines(host: self.host) {(error, pipelines) in
             XCTAssertNil(error)
-            XCTAssertEqual(1, (json as! NSArray).count)
-            let team = (((json as! NSArray)[0]) as! Dictionary<String, Any>)
-            XCTAssertEqual("cf-current", team["name"] as! String)
-            XCTAssertEqual(true, team["paused"] as! Bool)
-            XCTAssertEqual(true, team["public"] as! Bool)
-            XCTAssertEqual("docs", team["team_name"] as! String)
+            XCTAssertEqual(1, (pipelines as! NSArray).count)
+            let pipeline = (((pipelines as! NSArray)[0]) as! Dictionary<String, Any>)
+            XCTAssertEqual("cf-current", pipeline["name"] as! String)
+            XCTAssertEqual(true, pipeline["paused"] as! Bool)
+            XCTAssertEqual(true, pipeline["public"] as! Bool)
+            XCTAssertEqual("docs", pipeline["team_name"] as! String)
 
             self.request.fulfill()
         }
@@ -95,18 +92,17 @@ class ConcourseClientTest: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
 
         XCTAssertEqual(self.host, jsonClient.host)
-        XCTAssertEqual(path, jsonClient.path)
+        XCTAssertEqual("/pipelines", jsonClient.path)
     }
 
     func testGetPipelinesWithFailedJsonRequest() {
-        let path = "/pipelines"
         let jsonClient = MockJsonClient(error: self.error)
 
         let concourseClient = ConcourseClient(jsonClient: jsonClient)
 
-        concourseClient.getPipelines(host: host) {(error, json) in
+        concourseClient.getPipelines(host: self.host) {(error, pipelines) in
             XCTAssertEqual(self.error, error as! ConcourseClientTest.MockError)
-            XCTAssertNil(json as? String)
+            XCTAssertNil(pipelines)
 
             self.request.fulfill()
         }
@@ -114,6 +110,45 @@ class ConcourseClientTest: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
         
         XCTAssertEqual(self.host, jsonClient.host)
-        XCTAssertEqual(path, jsonClient.path)
+        XCTAssertEqual("/pipelines", jsonClient.path)
+    }
+
+    func testGetJobsWithSuccessfulJsonRequest() {
+        let expectedJson = [["name": "oss-bind"]]
+        let jsonClient = MockJsonClient(json: expectedJson)
+
+        let concourseClient = ConcourseClient(jsonClient: jsonClient)
+
+        concourseClient.getJobs(host: self.host, pipeline: "cf-current") {(error, jobs) in
+            XCTAssertNil(error)
+            XCTAssertEqual(1, (jobs as! NSArray).count)
+            let job = (((jobs as! NSArray)[0]) as! Dictionary<String, Any>)
+            XCTAssertEqual("oss-bind", job["name"] as! String)
+
+            self.request.fulfill()
+        }
+
+        waitForExpectations(timeout: 10, handler: nil)
+
+        XCTAssertEqual(self.host, jsonClient.host)
+        XCTAssertEqual("/pipelines/cf-current/jobs", jsonClient.path)
+    }
+
+    func testGetJobsWithFailedJsonRequest() {
+        let jsonClient = MockJsonClient(error: self.error)
+
+        let concourseClient = ConcourseClient(jsonClient: jsonClient)
+
+        concourseClient.getJobs(host: self.host, pipeline: "cf-current") {(error, jobs) in
+            XCTAssertEqual(self.error, error as! ConcourseClientTest.MockError)
+            XCTAssertNil(jobs)
+
+            self.request.fulfill()
+        }
+
+        waitForExpectations(timeout: 10, handler: nil)
+
+        XCTAssertEqual(self.host, jsonClient.host)
+        XCTAssertEqual("/pipelines/cf-current/jobs", jsonClient.path)
     }
 }
